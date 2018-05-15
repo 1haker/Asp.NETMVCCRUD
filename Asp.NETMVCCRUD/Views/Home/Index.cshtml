@@ -6,6 +6,11 @@
 
 Welcome @HttpContext.Current.User.Identity.Name
 
+
+<div>
+    @Html.ActionLink("Go to Employee Database", "Index", "Employee")
+</div>
+
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("Logout", "User", FormMethod.Post, new { id = "logoutForm" }))
@@ -14,3 +19,4 @@ Welcome @HttpContext.Current.User.Identity.Name
     }
 }
 
+        
