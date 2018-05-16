@@ -8,10 +8,9 @@ using System.Data.Entity;
 
 namespace Asp.NETMVCCRUD.Controllers
 {
-    public class EmployeeController : Controller
+    public class PlayerController : Controller
     {
-        //
-        // GET: /Employee/
+        // GET: /Player/
         public ActionResult Index()
         {
             return View();
@@ -20,10 +19,10 @@ namespace Asp.NETMVCCRUD.Controllers
         //GetData
         public ActionResult GetData()
         {
-            using (DBModel1 db = new DBModel1())
+            using (DBModel2 db = new DBModel2())
             {
-                List<Employee> empList = db.Employees.ToList<Employee>();
-                return Json(new { data = empList }, JsonRequestBehavior.AllowGet);
+                List<Player> playList = db.Players.ToList<Player>();
+                return Json(new { data = playList }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -32,30 +31,30 @@ namespace Asp.NETMVCCRUD.Controllers
         public ActionResult AddOrEdit(int id = 0)
         {
             if (id == 0)
-                return View(new Employee());
+                return View(new Player());
             else
             {
-                using (DBModel1 db = new DBModel1())
+                using (DBModel2 db = new DBModel2())
                 {
-                    return View(db.Employees.Where(x => x.EmployeeID==id).FirstOrDefault<Employee>());
+                    return View(db.Players.Where(x => x.PlayerID==id).FirstOrDefault<Player>());
                 }
             }
         }
 
-        //AddOrEdit employee
+        //AddOrEdit 
         [HttpPost]
-        public ActionResult AddOrEdit(Employee emp)
+        public ActionResult AddOrEdit(Player play)
         {
-            using (DBModel1 db = new DBModel1())
+            using (DBModel2 db = new DBModel2())
             {
-                if (emp.EmployeeID == 0)
+                if (play.PlayerID == 0)
                 {
-                    db.Employees.Add(emp);
+                    db.Players.Add(play);
                     db.SaveChanges();
                     return Json(new { success = true, message = "Saved Successfully" }, JsonRequestBehavior.AllowGet);
                 }
                 else {
-                    db.Entry(emp).State = EntityState.Modified;
+                    db.Entry(play).State = EntityState.Modified;
                     db.SaveChanges();
                     return Json(new { success = true, message = "Updated Successfully" }, JsonRequestBehavior.AllowGet);
                 }
@@ -68,10 +67,10 @@ namespace Asp.NETMVCCRUD.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            using (DBModel1 db = new DBModel1())
+            using (DBModel2 db = new DBModel2())
             {
-                Employee emp = db.Employees.Where(x => x.EmployeeID == id).FirstOrDefault<Employee>();
-                db.Employees.Remove(emp);
+                Player emp = db.Players.Where(x => x.PlayerID == id).FirstOrDefault<Player>();
+                db.Players.Remove(emp);
                 db.SaveChanges();
                 return Json(new { success = true, message = "Deleted Successfully" }, JsonRequestBehavior.AllowGet);
             }

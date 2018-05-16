@@ -13,10 +13,10 @@ namespace Asp.NETMVCCRUD.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DBModel1 : DbContext
+    public partial class DBModel2 : DbContext
     {
-        public DBModel1()
-            : base("name=DBModel1")
+        public DBModel2()
+            : base("name=DBModel2")
         {
         }
     
@@ -25,6 +25,6 @@ namespace Asp.NETMVCCRUD.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<Player> Players { get; set; }
     }
 }

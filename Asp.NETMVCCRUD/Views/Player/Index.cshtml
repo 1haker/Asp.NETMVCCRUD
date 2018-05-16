@@ -1,18 +1,18 @@
 ﻿@{
-    ViewBag.Title = "Employee List";
+    ViewBag.Title = "Player List";
 }
 
-<h2>Employee CRUD Operations</h2>
+<h2>Players Database</h2>
 
-<a class="btn btn-success" style="margin-bottom:10px" onclick="PopupForm('@Url.Action("AddOrEdit","Employee")')"><i class="fa fa-plus"></i> Add New</a>
-<table id="employeeTable" class="table table-striped table-bordered" style="width:100%">
+<a class="btn btn-success" style="margin-bottom:10px" onclick="PopupForm('@Url.Action("AddOrEdit","Player")')"><i class="fa fa-plus"></i> Add New</a>
+<table id="playerTable" class="table table-striped table-bordered" style="width:100%">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Position</th>
-            <th>Office</th>
-            <th>Age</th>
-            <th>Salary</th>
+            <th>Nick</th>
+            <th>Profession</th>
+            <th>Guild</th>
+            <th>Level</th>
+            <th>Fortune</th>
             <th></th>
         </tr>
     </thead>
@@ -28,20 +28,20 @@
     <script>
         var Popup, dataTable;
         $(document).ready(function () {
-            dataTable =  $("#employeeTable").DataTable({
+            dataTable = $("#playerTable").DataTable({
                 "ajax": {
-                    "url": "/Employee/GetData",
+                    "url": "/Player/GetData",
                     "type": "GET",
                     "datatype": "json"
                 },
                 "columns": [
-                    { "data": "Name" },
-                    { "data": "Position" },
-                    { "data": "Office" },
-                    { "data": "Age" },
-                    { "data": "Salary" },
-                    {"data":"EmployeeID" , "render" : function (data) {
-                        return "<a class='btn btn-default btn-sm' onclick=PopupForm('@Url.Action("AddOrEdit","Employee")/" + data + "')><i class='fa fa-pencil'></i> Edit</a><a class='btn btn-danger btn-sm' style='margin-left:5px' onclick=Delete("+data+")><i class='fa fa-trash'></i> Delete</a>";
+                    { "data": "Nick" },
+                    { "data": "Profession" },
+                    { "data": "Guild" },
+                    { "data": "Level" },
+                    { "data": "Fortune" },
+                    {"data":"PlayerID" , "render" : function (data) {
+                        return "<a class='btn btn-default btn-sm' onclick=PopupForm('@Url.Action("AddOrEdit", "Player")/" + data + "')><i class='fa fa-pencil'></i> Edit</a><a class='btn btn-danger btn-sm' style='margin-left:5px' onclick=Delete("+data+")><i class='fa fa-trash'></i> Delete</a>";
                     },
                         "orderable": false,
                         "searchable":false,
@@ -65,7 +65,7 @@
                 Popup = formDiv.dialog({
                     autoOpen: true,
                     resizable: false,
-                    title: 'Fill Employee Details',
+                    title: 'Fill Player Details',
                     height: 500,
                     width: 700,
                     close: function () {
@@ -102,11 +102,11 @@
         }
 
         function Delete(id) {
-            if(confirm('Are You Sure to Delete this Employee Record ?'))
+            if (confirm('Are You Sure to Delete this Player Record ?'))
             {
                 $.ajax({
                     type: "POST",
-                    url: '@Url.Action("Delete","Employee")/' + id,
+                    url: '@Url.Action("Delete", "Player")/' + id,
                     success: function (data) {
                         if (data.success)
                         {
@@ -124,4 +124,12 @@
             }
         }
     </script>
+}
+
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("Logout", "User", FormMethod.Post, new { id = "logoutForm" }))
+    {
+        <a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
+    }
 }

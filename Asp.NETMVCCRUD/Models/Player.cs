@@ -11,17 +11,14 @@ namespace Asp.NETMVCCRUD.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-    public partial class Employee
+    
+    public partial class Player
     {
-        public int EmployeeID { get; set; }
-        [Required(ErrorMessage = "This field is required")]
-        public string Name { get; set; }
-        [Required(ErrorMessage = "This field is required")]
-        public string Position { get; set; }
-        public string Office { get; set; }
-        public Nullable<int> Age { get; set; }
-        public Nullable<int> Salary { get; set; }
+        public int PlayerID { get; set; }
+        public string Nick { get; set; }
+        public string Profession { get; set; }
+        public string Guild { get; set; }
+        public Nullable<int> Level { get; set; }
+        public Nullable<int> Fortune { get; set; }
     }
 }
